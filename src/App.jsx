@@ -1,10 +1,16 @@
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import NavBar from "./NavBar"
 
 function App() {
    return (
     <>
-    <BrowserRouter basename="/"></BrowserRouter>
+    <BrowserRouter basename="/">
+     <Routes>
+      <Route path="/" element={<div>Base Page</div>}/>
+      <Route path="/login" element={<div>LogIn Page</div>}/>
+      <Route path="/test" element={<div>Test Page</div>}/>
+     </Routes>
+    </BrowserRouter>
    <NavBar/>
     </>
   )
