@@ -6,3 +6,6 @@ Component Degin:=
    Routes = /login => login page
    Routes = /connetions => connections lists
    Routes = /user/profile => User profiles Data
+
+<Route path="/" element={<Body/>}/> is same
+<Route path="/" element={<Body/>}> </Route>
