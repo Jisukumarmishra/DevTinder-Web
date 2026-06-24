@@ -1,0 +1,8 @@
+Component Degin:=
+
+ Body Component / Main Component/Container
+   NavBar
+   Routes = / => feed
+   Routes = /login => login page
+   Routes = /connetions => connections lists
+   Routes = /user/profile => User profiles Data
