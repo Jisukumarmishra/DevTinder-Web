@@ -1,5 +1,9 @@
+import { useState } from "react";
 
 const LogIn = () => {
+  const [emailId, setEmailId] = useState();
+  const [passWord, setPassWord] = useState();
+
   return (
   <div className="flex justify-center ">
   <div className="flex justify-center card card-border bg-base-300 w-96 ">
@@ -19,7 +23,9 @@ const LogIn = () => {
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
     </g>
   </svg>
-  <input type="email" placeholder="mail@site.com" required />
+  <input type="email"
+  value = {emailId}
+  placeholder="mail@site.com" required />
 </label>
 <div className="validator-hint hidden">Enter valid email address</div>
 <label className="input validator">
@@ -39,6 +45,7 @@ const LogIn = () => {
   </svg>
   <input
     type="password"
+    value = {passWord}
     required
     placeholder="Password"
     minLength="8"
