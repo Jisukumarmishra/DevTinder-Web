@@ -25,6 +25,7 @@ const LogIn = () => {
   </svg>
   <input type="email"
   value = {emailId}
+  onChange={(e) => setEmailId(e.target.value)}
   placeholder="mail@site.com" required />
 </label>
 <div className="validator-hint hidden">Enter valid email address</div>
@@ -46,6 +47,7 @@ const LogIn = () => {
   <input
     type="password"
     value = {passWord}
+    onChange={(e) => setPassWord(e.target.value)}
     required
     placeholder="Password"
     minLength="8"
