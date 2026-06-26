@@ -15,3 +15,4 @@ add middleware of the cors in the backend with the credentials and origin to ext
 
 
 # Install Redux ToolKit To Stroe The user Data In Redux Store
+install the react-redux+@reduxjs/toolkit -----> configureStore -----> Provider (Provide A Store in The Application(app.jsx))------->createSlice And Export Things Properly(actions export)-----------> add Reducer to the store
