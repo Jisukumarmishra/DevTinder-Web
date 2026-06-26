@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import NavBar from "./NavBar"
 import Body from "./Body"
 import LogIn from "./LogIn"
 import Profile from "./Profile"
@@ -15,7 +14,6 @@ function App() {
       </Route>
      </Routes>
     </BrowserRouter>
-   <NavBar/>
     </>
   )
   
