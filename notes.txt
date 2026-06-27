@@ -9,3 +9,9 @@ Component Degin:=
 
 <Route path="/" element={<Body/>}/> is same
 <Route path="/" element={<Body/>}> </Route>
+
+
+
+Agar export default dikhe 👉 import mein {} mat lagao.
+
+Agar export const dikhe 👉 import mein {} lagao
