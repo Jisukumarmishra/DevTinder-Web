@@ -1,19 +1,24 @@
 import { Outlet } from "react-router-dom"
 import NavBar from "./NavBar"
 import Footer from "./Footer"
-import { Axios } from "axios"
+import  axios  from "axios"
 import { BASE_URL } from "../utils/constants"
+import { useDispatch } from "react-redux"
+import { addUser } from "../utils/userSlice"
 
 
 const Body = () => {
+  const dispatch = useDispatch();
   const fetchUser = async () => {
-    try {const user = await Axios.GET(BASE_URL+"/profile/view", {
-      withCredential : true,
-    });}
+    try {
+      const res = await axios.get(BASE_URL+"/profile/view", {
+      withCredentials : true,
+    });
+    dispatch(addUser(res.data));
+   }
     catch (err) {
      console.error(err); 
     }
-
   }
   return (
     <div>
