@@ -5,6 +5,7 @@ import  axios  from "axios"
 import { BASE_URL } from "../utils/constants"
 import { useDispatch } from "react-redux"
 import { addUser } from "../utils/userSlice"
+import { useEffect } from "react"
 
 
 const Body = () => {
@@ -20,6 +21,9 @@ const Body = () => {
      console.error(err); 
     }
   }
+  useEffect(() => {
+    fetchUser();
+  },[]);
   return (
     <div>
       <NavBar/>
