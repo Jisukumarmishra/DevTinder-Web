@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import NavBar from "./NavBar"
 import Footer from "./Footer"
 import  axios  from "axios"
@@ -9,6 +9,7 @@ import { useEffect } from "react"
 
 
 const Body = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const fetchUser = async () => {
     try {
@@ -18,6 +19,7 @@ const Body = () => {
     dispatch(addUser(res.data));
    }
     catch (err) {
+      navigate("/login");''
      console.error(err); 
     }
   }
