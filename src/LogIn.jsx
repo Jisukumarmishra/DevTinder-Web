@@ -4,12 +4,11 @@ import { useDispatch } from "react-redux";
 import { addUser } from "./utils/userSlice";
 
 const LogIn = () => {
-  const [emailId, setEmailId] = useState("tony@gmail.com");
-  const [passWord, setPassWord] = useState("Tony@123");
+  const [emailId, setEmailId] = useState("jisu@gmail.com");
+  const [passWord, setPassWord] = useState("Jisu@123");
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
-    console.log("Buttom Clicked");
      try {
       const res = await axios.post("http://localhost:3000/login", {
       emailId,
