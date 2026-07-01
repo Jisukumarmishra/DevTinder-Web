@@ -1,8 +1,28 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
+import { removeUser } from "../utils/userSlice";
+
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
+  const handleLogout = async () => {
+   try {
+   await axios.post(BASE_URL + "/logout",{}, {withCredentials : true})
+   // now clear the data form the redux store and redirect to the login page after onClick on the logout
+   // Dispatch an Action removeUser That Action Create In userSlice 
+   dispatch(removeUser());
+   return navigate("/login");
+   }
+   catch (err) {
+  // Error Logic May Be Redirect To The Error Page
+  
+   }
+  }
 
   return (
     <div className="navbar bg-base-300 shadow-sm px-8">
@@ -46,7 +66,7 @@ const NavBar = () => {
               </li>
 
               <li>
-                <a>Logout</a>
+                <a onClick={handleLogout}>Logout</a>
               </li>
             </ul>
           </div>
