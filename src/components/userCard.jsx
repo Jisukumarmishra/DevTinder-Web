@@ -1,4 +1,5 @@
-const UserCard = () => {
+const UserCard = ({ user }) => {
+  console.log(user);
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure>
