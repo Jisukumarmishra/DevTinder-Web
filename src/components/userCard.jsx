@@ -1,6 +1,4 @@
-import React from "react";
-
-const userCard = () => {
+const UserCard = () => {
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure>
@@ -23,4 +21,4 @@ const userCard = () => {
   );
 };
 
-export default userCard;
+export default UserCard;
