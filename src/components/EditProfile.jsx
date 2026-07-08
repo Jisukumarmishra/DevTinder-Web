@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const EditProfile = () => {
-  const [firstName, setFirstname] =useState("");
+  const [firstName, setFirstname] = useState("");
   const [lastName, setLastName] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [age, setAge] = useState("");
@@ -92,7 +92,7 @@ const EditProfile = () => {
 
             <input
               type="password"
-              value={}
+              // value={}
               onChange={(e) => setPassWord(e.target.value)}
               placeholder="Password"
               required
