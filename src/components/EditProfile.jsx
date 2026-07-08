@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const EditProfile = () => {
+const EditProfile = ({ user }) => {
   const [firstName, setFirstname] = useState("");
   const [lastName, setLastName] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
