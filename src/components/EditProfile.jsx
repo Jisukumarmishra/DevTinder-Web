@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 const EditProfile = ({ user }) => {
-  const [firstName, setFirstname] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [about, setabout] = useState("");
+  const [firstName, setFirstname] = useState(user.firstname);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
+  const [age, setAge] = useState(user.age);
+  const [gender, setGender] = useState(user.gender);
+  const [about, setabout] = useState(user.about);
   return (
     <div className="flex justify-center my-10">
       <div className="card card-border bg-base-300 w-96">
