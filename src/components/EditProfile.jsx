@@ -127,6 +127,7 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       </div>
+      <UserCard />
     </>
   );
 };
