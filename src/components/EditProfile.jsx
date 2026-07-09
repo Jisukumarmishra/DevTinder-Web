@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import UserCard from "./UserCard";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstname] = useState(user.firstname);
@@ -11,6 +13,7 @@ const EditProfile = ({ user }) => {
   const [gender, setGender] = useState(user.gender);
   const [about, setabout] = useState(user.about);
   const [error, setError] = useState("");
+  const dispatch = useDispatch;
 
   const saveProfile = async () => {
     try {
@@ -19,6 +22,9 @@ const EditProfile = ({ user }) => {
         { firstName, lastName, photoUrl, age, gender, about },
         { withCredentials: true },
       );
+      // once my profile is save (above code)
+      // now update my store withh the new profile means dispatch an action addUser
+      dispatch(addUser);
     } catch (err) {
       setError(err.response);
     }
