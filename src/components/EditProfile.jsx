@@ -6,14 +6,14 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const EditProfile = ({ user }) => {
-  const [firstName, setFirstname] = useState(user.firstname);
+  const [firstName, setFirstname] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [age, setAge] = useState(user.age);
   const [gender, setGender] = useState(user.gender);
   const [about, setabout] = useState(user.about);
   const [error, setError] = useState("");
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
 
   const saveProfile = async () => {
     try {
@@ -24,133 +24,96 @@ const EditProfile = ({ user }) => {
       );
       // once my profile is save (above code)
       // now update my store withh the new profile means dispatch an action addUser
-      dispatch(addUser);
+      dispatch(addUser(res?.data?.data)); // now addUser take the data that we are getting formm the response
     } catch (err) {
-      setError(err.response);
+      setError(err.data);
     }
   };
 
   return (
-    <div className="flex justify-center my-10">
-      <div className="flex justify-center mx-10">
-        <div className="card card-border bg-base-300 w-96">
-          <div className="card-body">
-            <h2 className="card-title">Edit Profile</h2>
+    <div className="flex justify-center my-10 ">
+      {/* Edit Profile Card */}
+      <div className="flex justify-center mx-10 bg-base-300 w-96">
+        <div className="card-body">
+          <h2 className="card-title justify-center text-2xl mb-4">
+            Edit Profile
+          </h2>
 
-            {/* Email */}
-            <label className="input validator mb-1">
-              <svg
-                className="h-[1em] opacity-50"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                </g>
-              </svg>
+          {/* First Name */}
+          <input
+            type="text"
+            placeholder="First Name"
+            className="input input-bordered w-full mb-3"
+            value={firstName}
+            onChange={(e) => setFirstname(e.target.value)}
+          />
 
-              <input
-                type="email"
-                value={firstName}
-                onChange={(e) => setFirstname(e.target.value)}
-                placeholder="mail@site.com"
-                required
-              />
-            </label>
-            <label className="input validator mb-1">
-              <svg
-                className="h-[1em] opacity-50"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                </g>
-              </svg>
+          {/* Last Name */}
+          <input
+            type="text"
+            placeholder="Last Name"
+            className="input input-bordered w-full mb-3"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
 
-              <input
-                type="email"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="mail@site.com"
-                required
-              />
-            </label>
+          {/* Photo URL */}
+          <input
+            type="text"
+            placeholder="Photo URL"
+            className="input input-bordered w-full mb-3"
+            value={photoUrl}
+            onChange={(e) => setPhotoUrl(e.target.value)}
+          />
 
-            <p className="validator-hint hidden mb-2">
-              Enter valid email address
-            </p>
+          {/* Age */}
+          <input
+            type="number"
+            placeholder="Age"
+            className="input input-bordered w-full mb-3"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+          />
 
-            {/* Password */}
-            <label className="input validator mt-2">
-              <svg
-                className="h-[1em] opacity-50"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
-                  <circle
-                    cx="16.5"
-                    cy="7.5"
-                    r=".5"
-                    fill="currentColor"
-                  ></circle>
-                </g>
-              </svg>
+          {/* Gender */}
+          <select
+            className="select select-bordered w-full mb-3"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          >
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
 
-              <input
-                type="password"
-                // value={}
-                onChange={(e) => setPassWord(e.target.value)}
-                placeholder="Password"
-                required
-                minLength={8}
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-              />
-            </label>
+          {/* About */}
+          <textarea
+            className="textarea textarea-bordered w-full mb-3"
+            placeholder="About Yourself"
+            value={about}
+            onChange={(e) => setabout(e.target.value)}
+          ></textarea>
 
-            <p className="validator-hint hidden">
-              Must be more than 8 characters, including
-              <br />
-              At least one number
-              <br />
-              At least one lowercase letter
-              <br />
-              At least one uppercase letter
-            </p>
+          {error && <p className="text-red-500">{error}</p>}
 
-            <div className="card-actions justify-end">
-              <p className="text-red-500 p-4">{error}</p>
-              <button className="btn btn-primary my-3" onClick={handleLogin}>
-                Save Profile !!
-              </button>
-            </div>
-          </div>
+          <button className="btn btn-primary mt-3" onClick={saveProfile}>
+            Save Profile
+          </button>
         </div>
       </div>
-      <UserCard user={{ firstName, lastName, photoUrl, age, gender, about }} />
+
+      {/* Live Preview */}
+      <UserCard
+        user={{
+          firstName,
+          lastName,
+          photoUrl,
+          age,
+          gender,
+          about,
+        }}
+      />
     </div>
   );
 };
