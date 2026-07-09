@@ -26,7 +26,7 @@ const EditProfile = ({ user }) => {
       // now update my store withh the new profile means dispatch an action addUser
       dispatch(addUser(res?.data?.data)); // now addUser take the data that we are getting formm the response
     } catch (err) {
-      setError(err.data);
+      setError(err.response.data);
     }
   };
 
