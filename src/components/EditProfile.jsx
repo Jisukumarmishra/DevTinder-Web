@@ -9,7 +9,7 @@ const EditProfile = ({ user }) => {
   const [gender, setGender] = useState(user.gender);
   const [about, setabout] = useState(user.about);
   return (
-    <>
+    <div>
       <div className="flex justify-center my-10">
         <div className="card card-border bg-base-300 w-96">
           <div className="card-body">
@@ -129,7 +129,7 @@ const EditProfile = ({ user }) => {
         </div>
       </div>
       <UserCard user={{ firstName, lastName, photoUrl, age, gender, about }} />
-    </>
+    </div>
   );
 };
 
