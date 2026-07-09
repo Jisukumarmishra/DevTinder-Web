@@ -8,6 +8,15 @@ const EditProfile = ({ user }) => {
   const [age, setAge] = useState(user.age);
   const [gender, setGender] = useState(user.gender);
   const [about, setabout] = useState(user.about);
+  const [error, setError] = useState("");
+
+  const saveProfile = async () => {
+    try {
+    } catch (err) {
+      setError(err.response);
+    }
+  };
+
   return (
     <div className="flex justify-center my-10">
       <div className="flex justify-center mx-10">
