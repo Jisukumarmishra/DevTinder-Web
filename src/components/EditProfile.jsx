@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import UserCard from "./UserCard";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstname] = useState(user.firstname);
@@ -127,7 +128,7 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       </div>
-      <UserCard />
+      <UserCard user={{ firstName, lastName, photoUrl, age, gender, about }} />
     </>
   );
 };
