@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import UserCard from "./UserCard";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstname] = useState(user.firstname);
@@ -12,6 +14,11 @@ const EditProfile = ({ user }) => {
 
   const saveProfile = async () => {
     try {
+      const res = await axios.patch(
+        BASE_URL + "/profile/edit",
+        { firstName, lastName, photoUrl, age, gender, about },
+        { withCredentials: true },
+      );
     } catch (err) {
       setError(err.response);
     }
