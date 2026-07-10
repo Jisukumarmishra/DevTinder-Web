@@ -29,6 +29,9 @@ const EditProfile = ({ user }) => {
       // now update my store withh the new profile means dispatch an action addUser
       dispatch(addUser(res?.data?.data)); // now addUser take the data that we are getting formm the response
       setShowToast(true);
+      const i = setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
     } catch (err) {
       setError(err.response.data);
     }
@@ -120,11 +123,13 @@ const EditProfile = ({ user }) => {
           }}
         />
       </div>
-      <div className="toast toast-top toast-center">
-        <div className="alert alert-success">
-          <span>Message sent successfully.</span>
+      {showToast && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-success">
+            <span>Profile Save successfully.</span>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
