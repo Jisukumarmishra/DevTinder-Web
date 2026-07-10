@@ -14,6 +14,7 @@ const EditProfile = ({ user }) => {
   const [about, setabout] = useState(user.about);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
+  const [showToast, setShowToast] = useState(false);
 
   const saveProfile = async () => {
     // before saving the profile clear the error
@@ -27,6 +28,7 @@ const EditProfile = ({ user }) => {
       // once my profile is save (above code)
       // now update my store withh the new profile means dispatch an action addUser
       dispatch(addUser(res?.data?.data)); // now addUser take the data that we are getting formm the response
+      setShowToast(true);
     } catch (err) {
       setError(err.response.data);
     }
@@ -119,9 +121,6 @@ const EditProfile = ({ user }) => {
         />
       </div>
       <div className="toast toast-top toast-center">
-        <div className="alert alert-info">
-          <span>New mail arrived.</span>
-        </div>
         <div className="alert alert-success">
           <span>Message sent successfully.</span>
         </div>
