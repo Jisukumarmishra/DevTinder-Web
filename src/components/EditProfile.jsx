@@ -33,7 +33,7 @@ const EditProfile = ({ user }) => {
   };
 
   return (
-    <div className="flex justify-center my-10 ">
+    <div className="flex justify-center my-10 mx-60">
       {/* Edit Profile Card */}
       <div className="flex justify-center mx-10 bg-base-300 w-96">
         <div className="card-body">
