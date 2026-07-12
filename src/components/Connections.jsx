@@ -1,14 +1,18 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addConnections } from "../utils/connectionsSlice";
 
 const Connections = () => {
+  const dispatch = useDispatch();
   const fetchConnections = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
       });
-      console.log(res);
+      console.log(res.data.data);
+      dispatch(addConnections());
     } catch (err) {
       // handle erroe case
     }
