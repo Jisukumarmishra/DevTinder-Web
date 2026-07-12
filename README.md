@@ -20,3 +20,5 @@ install the react-redux+@reduxjs/toolkit -----> configureStore -----> Provider (
 // now create page to see all my connections
 
 // i can store my connections to appstore (redux store) or create a state varriable for it
+
+// to get the data form the store use useSelector
