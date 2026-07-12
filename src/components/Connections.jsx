@@ -12,7 +12,7 @@ const Connections = () => {
         withCredentials: true,
       });
       console.log(res.data.data);
-      dispatch(addConnections());
+      dispatch(addConnections(res.data.data));
     } catch (err) {
       // handle erroe case
     }
