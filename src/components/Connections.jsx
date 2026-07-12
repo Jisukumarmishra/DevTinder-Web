@@ -30,6 +30,10 @@ const Connections = () => {
   return (
     <div className=" flex justify-center my-10">
       <h1 className="text-bold text-2xl">Connections</h1>
+      {/* Show the detais of the connections*/}
+      {connections.map((connections) => (
+        <div></div>
+      ))}
     </div>
   );
 };
