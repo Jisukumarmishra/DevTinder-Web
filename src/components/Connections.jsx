@@ -28,12 +28,24 @@ const Connections = () => {
   if (connections.length === 0) return <h1>No Connections Found </h1>;
 
   return (
-    <div className=" flex justify-center my-10">
+    <div className=" test-centre justify-center my-10">
       <h1 className="text-bold text-2xl">Connections</h1>
       {/* Show the detais of the connections*/}
-      {connections.map((connections) => (
-        <div></div>
-      ))}
+      {connections.map((connections) => {
+        const { firstName, lastName, age, gender, photoUrl, skills, about } =
+          connections;
+        return (
+          <div flex className="m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto">
+            <div>
+            <img alt="photo" className="w-20 h-20 rounded-full" src={photoUrl} /> <div/>
+            <div className="text-left mx-4"><h2 className="font-bold text-xl">{firstName + " " + lastName}
+              </h2>
+              {age && gender && <p>{age + ", " + gender}</p>}
+              <p>{about}</p>
+              </div>           
+          </div>
+        );
+      })}
     </div>
   );
 };
