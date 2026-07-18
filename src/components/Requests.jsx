@@ -32,36 +32,56 @@ const Requests = () => {
   if (requests.length === 0) return <h1>no request found</h1>;
 
   return (
-    <div className=" text-center my-10">
-      <h1 className=" text-bold text-white text-3xl">Requests</h1>
-      {/* map throguh the requests */}
-      {requests.map((request) => {
-        const { _id, firstName, lastName, photoUrl, age, gender, about } =
-          request.fromUserId;
-        return (
-          <div
-            key={_id}
-            className=" m-4 p-4 justify-between items-center rounded-lg bg-base-300 w-2/3 mx-auto"
-          >
-            <div>
-              <img
-                alt="photo"
-                className="w-20 h-20 rounded-full"
-                src={photoUrl}
-              />
+    <div className="min-h-screen py-10">
+      <h1 className="text-4xl font-bold text-center mb-8"> Pending Requests</h1>
+
+      <div className="flex flex-col gap-6">
+        {requests.map((request) => {
+          const { _id, firstName, lastName, photoUrl, age, gender, about } =
+            request.fromUserId;
+
+          return (
+            <div
+              key={_id}
+              className="w-11/12 md:w-2/3 lg:w-1/2 mx-auto bg-base-200 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 p-6"
+            >
+              <div className="flex items-center justify-between">
+                {/* Left Side */}
+                <div className="flex items-center gap-5">
+                  <img
+                    src={photoUrl}
+                    alt="Profile"
+                    className="w-24 h-24 rounded-full object-cover border-4 border-primary"
+                  />
+
+                  <div>
+                    <h2 className="text-2xl font-bold">
+                      {firstName} {lastName}
+                    </h2>
+
+                    {age && gender && (
+                      <p className="text-gray-400">
+                        {age} years • {gender}
+                      </p>
+                    )}
+
+                    <p className="mt-2 text-gray-300 max-w-md">{about}</p>
+                  </div>
+                </div>
+
+                {/* Right Side */}
+                <div className="flex flex-col gap-3">
+                  <button className="btn btn-success px-8">Accept</button>
+
+                  <button className="btn btn-outline btn-error px-8">
+                    Reject
+                  </button>
+                </div>
+              </div>
             </div>
-            <div>
-              <h2>{firstName + " " + lastName}</h2>
-              {age && gender && <p>{age + " " + gender}</p>}
-              <p>{about}</p>
-            </div>
-            <div>
-              <button className=" btn btn-primary mx-2">Reject</button>
-              <button className="btn btn-secondary mx-2">Accept</button>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
