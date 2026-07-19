@@ -19,3 +19,12 @@ Agar export default dikhe 👉 import mein {} mat lagao.
 We Biuild Recently :-->
  You Sholud Not Be acces other routes without login
  if token is not present redirect user to the login page
+
+
+Complete flow of request page
+
+// create a store
+// create a slice add to the store 
+// fetch the data form the request and save it form the store
+// and then show the request
+
