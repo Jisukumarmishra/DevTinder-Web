@@ -8,6 +8,15 @@ const Requests = () => {
   const dispatch = useDispatch();
   // now nake an api call and get the data
 
+  const reviewRequest = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "request/review" + status + "/" + _id,
+        {},
+        { withCredentials: true },
+      );
+    } catch (err) {}
+  };
   // to get the data form the store we use useSelector
   const requests = useSelector((store) => store.requests); // get the all the requests form the storestore => store.requests
 
@@ -71,9 +80,17 @@ const Requests = () => {
 
                 {/* Right Side */}
                 <div className="flex flex-col gap-3">
-                  <button className="btn btn-success px-8">Accept</button>
+                  <button
+                    className="btn btn-success px-8"
+                    onClick={() => reviewRequest("accepted", request._id)}
+                  >
+                    Accept
+                  </button>
 
-                  <button className="btn btn-outline btn-error px-8">
+                  <button
+                    className="btn btn-outline btn-error px-8"
+                    onClick={() => reviewRequest("rejectes", request._id)}
+                  >
                     Reject
                   </button>
                 </div>
