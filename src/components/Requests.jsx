@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests } from "../utils/requestsSlice";
@@ -7,6 +7,8 @@ import { addRequests } from "../utils/requestsSlice";
 const Requests = () => {
   const dispatch = useDispatch();
   // now nake an api call and get the data
+
+  const [showButtons, setShowButtons] = useState(true);
 
   const reviewRequest = async (status, _id) => {
     try {
