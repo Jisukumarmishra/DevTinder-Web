@@ -8,7 +8,7 @@ const Requests = () => {
   const dispatch = useDispatch();
   // now nake an api call and get the data
 
-  const [showButtons, setShowButtons] = useState(true);
+  // const [showButtons, setShowButtons] = useState(true);
 
   const reviewRequest = async (status, _id) => {
     try {
