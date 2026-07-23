@@ -8,9 +8,12 @@ import { BASE_URL } from "../utils/constants";
 const LogIn = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  // to create a switch we use a state varraible
+  const [isLogInForm, setIsLogInForm] = useState(true);
   const [emailId, setEmailId] = useState("");
   const [passWord, setPassWord] = useState("");
   const [error, setError] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,7 +40,7 @@ const LogIn = () => {
     <div className="flex justify-center my-10">
       <div className="card card-border bg-base-300 w-96">
         <div className="card-body">
-          <h2 className="card-title">Login!</h2>
+          <h2 className="card-title">{isLogInForm ? "Login!" : "SignUp!"}</h2>
 
           <label className="input validator mb-1">
             <svg
