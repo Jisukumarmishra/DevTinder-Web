@@ -1,7 +1,9 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
 
 const UserCard = ({ user }) => {
+  const dispatch = useDispatch();
   const handleSendRequest = async (status, userId) => {
     try {
       const res = await axios.post(
@@ -9,6 +11,7 @@ const UserCard = ({ user }) => {
         {},
         { withCredentials: true },
       );
+      dispatch();
     } catch (err) {
       console.error(err.message);
     }
