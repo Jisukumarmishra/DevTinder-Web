@@ -1,4 +1,18 @@
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+
 const UserCard = ({ user }) => {
+  const handleSendRequest = async (status, userId) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/request/send/" + status + userId,
+        {},
+        { withCredentials: true },
+      );
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   if (!user) return null;
 
   const { firstName, lastName, photoUrl, about, age, gender } = user;
