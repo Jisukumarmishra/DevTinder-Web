@@ -1,8 +1,10 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUserFromFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user }) => {
+  const { _id, firstName, lastName, photoUrl, about, age, gender } = user;
   const dispatch = useDispatch();
   const handleSendRequest = async (status, userId) => {
     try {
@@ -11,14 +13,12 @@ const UserCard = ({ user }) => {
         {},
         { withCredentials: true },
       );
-      dispatch();
+      dispatch(removeUserFromFeed(userId));
     } catch (err) {
       console.error(err.message);
     }
   };
   if (!user) return null;
-
-  const { firstName, lastName, photoUrl, about, age, gender } = user;
 
   return (
     <div className="mx-auto w-[360px] overflow-hidden rounded-3xl border border-white/10 bg-[#111827] shadow-2xl backdrop-blur-xl">
@@ -56,7 +56,10 @@ const UserCard = ({ user }) => {
 
         {/* Buttons */}
         <div className="mt-7 flex gap-4">
-          <button className="flex-1 rounded-2xl border border-red-400/30 bg-red-500/10 py-3 font-semibold text-red-400 transition hover:bg-red-500/20">
+          <button
+            className="flex-1 rounded-2xl border border-red-400/30 bg-red-500/10 py-3 font-semibold text-red-400 transition hover:bg-red-500/20"
+            onClick={() => handleSendRequest("ignored", _id)}
+          >
             ✕ Ignore
           </button>
 
