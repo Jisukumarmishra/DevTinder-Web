@@ -9,7 +9,7 @@ const UserCard = ({ user }) => {
   const handleSendRequest = async (status, userId) => {
     try {
       const res = await axios.post(
-        BASE_URL + "/request/send/" + status + userId,
+        BASE_URL + "/request/send/" + status + "/" + userId,
         {},
         { withCredentials: true },
       );
@@ -57,13 +57,16 @@ const UserCard = ({ user }) => {
         {/* Buttons */}
         <div className="mt-7 flex gap-4">
           <button
-            className="flex-1 rounded-2xl border border-red-400/30 bg-red-500/10 py-3 font-semibold text-red-400 transition hover:bg-red-500/20"
-            onClick={() => handleSendRequest("ignored", _id)}
+            className=" cursor-pointer flex-1 rounded-2xl border border-red-400/30 bg-red-500/10 py-3 font-semibold text-red-400 transition hover:bg-red-500/20"
+            onClick={() => handleSendRequest("ignore", _id)}
           >
             ✕ Ignore
           </button>
 
-          <button className="flex-1 rounded-2xl bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600 py-3 font-semibold text-white shadow-lg transition hover:scale-105">
+          <button
+            className=" cursor-pointer flex-1 rounded-2xl bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-600 py-3 font-semibold text-white shadow-lg transition hover:scale-105"
+            onClick={() => handleSendRequest("interested", _id)}
+          >
             ❤ Interested
           </button>
         </div>

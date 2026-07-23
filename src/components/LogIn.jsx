@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
-
 
 const LogIn = () => {
   const [emailId, setEmailId] = useState("jisu@gmail.com");
@@ -13,22 +12,26 @@ const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [firstName, setFirstName] = useSelector();
+  const [lastName, setLastName] = useSelector();
+
   const handleLogin = async () => {
-     try {
-      const res = await axios.post(BASE_URL+ "/login",
-      {
-      emailId,
-      passWord
-    },
-    {withCredentials : true});
-    console.log(res.data);
-    dispatch(addUser(res.data));
-    navigate("/") 
-   }
-   catch (err) {
-    setError(err?.response.data || "Something Went Wrong");
-    console.error(err.message);
-   }
+    try {
+      const res = await axios.post(
+        BASE_URL + "/login",
+        {
+          emailId,
+          passWord,
+        },
+        { withCredentials: true },
+      );
+      console.log(res.data);
+      dispatch(addUser(res.data));
+      navigate("/");
+    } catch (err) {
+      setError(err?.response.data || "Something Went Wrong");
+      console.error(err.message);
+    }
   };
 
   return (
@@ -36,6 +39,59 @@ const LogIn = () => {
       <div className="card card-border bg-base-300 w-96">
         <div className="card-body">
           <h2 className="card-title">Login!</h2>
+
+          <label className="input validator mb-1">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </g>
+            </svg>
+
+            <input
+              type="email"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="FirstName"
+              required
+            />
+          </label>
+          <label className="input validator mb-1">
+            <svg
+              className="h-[1em] opacity-50"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2.5"
+                fill="none"
+                stroke="currentColor"
+              >
+                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+              </g>
+            </svg>
+
+            <input
+              type="email"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="LastName"
+              required
+            />
+          </label>
 
           {/* Email */}
           <label className="input validator mb-1">
