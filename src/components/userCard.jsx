@@ -8,7 +8,10 @@ const UserCard = ({ user }) => {
       {/* Image */}
       <div className="relative h-[340px] overflow-hidden">
         <img
-          src={photoUrl}
+          src={
+            photoUrl ||
+            "https://img.magnific.com/free-vector/user-circles-set_78370-4704.jpg?semt=ais_hybrid"
+          }
           alt={`${firstName} ${lastName}`}
           className="h-full w-full object-cover transition duration-500 hover:scale-105"
         />
