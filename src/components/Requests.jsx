@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests } from "../utils/requestsSlice";
+import { addRequests, removeRequest } from "../utils/requestsSlice";
 
 const Requests = () => {
   const dispatch = useDispatch();
@@ -13,11 +13,14 @@ const Requests = () => {
   const reviewRequest = async (status, _id) => {
     try {
       const res = await axios.post(
-        BASE_URL + "request/review" + status + "/" + _id,
+        BASE_URL + "/request/review/" + status + "/" + _id,
         {},
         { withCredentials: true },
       );
-    } catch (err) {}
+      dispatch(removeRequest(_id));
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+    }
   };
   // to get the data form the store we use useSelector
   const requests = useSelector((store) => store.requests); // get the all the requests form the storestore => store.requests
@@ -40,7 +43,10 @@ const Requests = () => {
 
   if (!requests) return;
 
-  if (requests.length === 0) return <h1>no request found</h1>;
+  if (requests.length === 0)
+    return (
+      <h1 className="flex justify-center my-10 text-xl">no request found</h1>
+    );
 
   return (
     <div className="min-h-screen py-10">
@@ -91,7 +97,7 @@ const Requests = () => {
 
                   <button
                     className="btn btn-outline btn-error px-8"
-                    onClick={() => reviewRequest("rejectes", request._id)}
+                    onClick={() => reviewRequest("rejected", request._id)}
                   >
                     Reject
                   </button>
