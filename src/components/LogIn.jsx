@@ -178,6 +178,14 @@ const LogIn = () => {
               Submit
             </button>
           </div>
+          <p
+            onClick={() => setIsLogInForm((value) => !value)}
+            className="cursor-pointer m-auto"
+          >
+            {isLogInForm
+              ? "New User ?  Sign Up Here"
+              : "Existing User : LogIn Here"}
+          </p>
         </div>
       </div>
     </div>
