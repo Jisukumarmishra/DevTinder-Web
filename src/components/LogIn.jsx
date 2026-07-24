@@ -40,60 +40,64 @@ const LogIn = () => {
     <div className="flex justify-center my-10">
       <div className="card card-border bg-base-300 w-96">
         <div className="card-body">
-          <h2 className="card-title">{isLogInForm ? "Login!" : "SignUp!"}</h2>
+          <h2 className="card-title">{isLogInForm ? "Login!" : "Sign Up!"}</h2>
 
-          <label className="input validator mb-1">
-            <svg
-              className="h-[1em] opacity-50"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <g
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" />
-              </g>
-            </svg>
+          {!isLogInForm && (
+            <>
+              <label className="input validator mb-1">
+                <svg
+                  className="h-[1em] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" />
+                  </g>
+                </svg>
 
-            <input
-              type="email"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="FirstName"
-              required
-            />
-          </label>
-          <label className="input validator mb-1">
-            <svg
-              className="h-[1em] opacity-50"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <g
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" />
-              </g>
-            </svg>
+                <input
+                  type="email"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="FirstName"
+                  required
+                />
+              </label>
+              <label className="input validator mb-1">
+                <svg
+                  className="h-[1em] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" />
+                  </g>
+                </svg>
 
-            <input
-              type="email"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="LastName"
-              required
-            />
-          </label>
+                <input
+                  type="email"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="LastName"
+                  required
+                />
+              </label>{" "}
+            </>
+          )}
 
           {/* Email */}
           <label className="input validator mb-1">
