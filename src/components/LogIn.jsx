@@ -40,7 +40,12 @@ const LogIn = () => {
     <div className="flex justify-center my-10">
       <div className="card card-border bg-base-300 w-96">
         <div className="card-body">
-          <h2 className="card-title">{isLogInForm ? "Login!" : "Sign Up!"}</h2>
+          <h2
+            className="card-title"
+            onClick={isLogInForm ? handleLogin : handleSignUp}
+          >
+            {isLogInForm ? "Login!" : "Sign Up!"}
+          </h2>
 
           {!isLogInForm && (
             <>
