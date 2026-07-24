@@ -42,7 +42,11 @@ const LogIn = () => {
         BASE_URL + "/signup" + { firstName, lastName, emailId, passWord },
         { withCredentials: true },
       );
-    } catch (err) {}
+      dispatch(addUser(res.data));
+      navigate("/profile");
+    } catch (err) {
+      setError(err?.response.data || "Something Went Wrong");
+    }
   };
 
   return (
@@ -77,7 +81,7 @@ const LogIn = () => {
                 </svg>
 
                 <input
-                  type="email"
+                  type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="FirstName"
@@ -103,7 +107,7 @@ const LogIn = () => {
                 </svg>
 
                 <input
-                  type="email"
+                  type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="LastName"
@@ -188,7 +192,10 @@ const LogIn = () => {
 
           <div className="card-actions justify-end">
             <p className="text-red-500 p-4">{error}</p>
-            <button className="btn btn-primary my-3" onClick={handleLogin}>
+            <button
+              className="btn btn-primary my-3"
+              onClick={isLogInForm ? handleLogin : handleSignUp}
+            >
               Submit
             </button>
           </div>
