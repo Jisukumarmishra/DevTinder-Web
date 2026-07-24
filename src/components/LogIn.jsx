@@ -36,6 +36,15 @@ const LogIn = () => {
     }
   };
 
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup" + { firstName, lastName, emailId, passWord },
+        { withCredentials: true },
+      );
+    } catch (err) {}
+  };
+
   return (
     <div className="flex justify-center my-10">
       <div className="card card-border bg-base-300 w-96">
