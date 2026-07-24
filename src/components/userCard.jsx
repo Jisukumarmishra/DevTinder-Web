@@ -13,6 +13,7 @@ const UserCard = ({ user }) => {
         {},
         { withCredentials: true },
       );
+      console.log("URL:", res);
       dispatch(removeUserFromFeed(userId));
     } catch (err) {
       console.error(err.message);
@@ -58,7 +59,7 @@ const UserCard = ({ user }) => {
         <div className="mt-7 flex gap-4">
           <button
             className=" cursor-pointer flex-1 rounded-2xl border border-red-400/30 bg-red-500/10 py-3 font-semibold text-red-400 transition hover:bg-red-500/20"
-            onClick={() => handleSendRequest("ignore", _id)}
+            onClick={() => handleSendRequest("ignored", _id)}
           >
             ✕ Ignore
           </button>

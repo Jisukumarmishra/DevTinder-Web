@@ -9,9 +9,9 @@ const EditProfile = ({ user }) => {
   const [firstName, setFirstname] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-  const [age, setAge] = useState(user.age);
-  const [gender, setGender] = useState(user.gender);
-  const [about, setabout] = useState(user.about);
+  const [age, setAge] = useState(user.age || "");
+  const [gender, setGender] = useState(user.gender || "");
+  const [about, setabout] = useState(user.about || "");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
@@ -43,7 +43,7 @@ const EditProfile = ({ user }) => {
         {/* Edit Profile Card */}
         <div className="flex justify-center mx-10 bg-base-300 w-96">
           <div className="card-body">
-            <h2 className="card-title justify-center text-2xl mb-4">
+            <h2 className="card-title justify-center text-2xl mb-4 items-start gap-8">
               Edit Profile
             </h2>
 

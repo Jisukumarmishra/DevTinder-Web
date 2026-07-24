@@ -39,9 +39,11 @@ const LogIn = () => {
   const handleSignUp = async () => {
     try {
       const res = await axios.post(
-        BASE_URL + "/signup" + { firstName, lastName, emailId, passWord },
+        BASE_URL + "/signup",
+        { firstName, lastName, emailId, passWord },
         { withCredentials: true },
       );
+      console.log(res.data);
       dispatch(addUser(res.data));
       navigate("/profile");
     } catch (err) {
@@ -53,16 +55,11 @@ const LogIn = () => {
     <div className="flex justify-center my-10">
       <div className="card card-border bg-base-300 w-96">
         <div className="card-body">
-          <h2
-            className="card-title"
-            onClick={isLogInForm ? handleLogin : handleSignUp}
-          >
-            {isLogInForm ? "Login!" : "Sign Up!"}
-          </h2>
+          <h2 className="card-title">{isLogInForm ? "Login!" : "Sign Up!"}</h2>
 
           {!isLogInForm && (
             <>
-              <label className="input validator mb-1">
+              <label className="input mb-1">
                 <svg
                   className="h-[1em] opacity-50"
                   xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +85,7 @@ const LogIn = () => {
                   required
                 />
               </label>
-              <label className="input validator mb-1">
+              <label className="input mb-1">
                 <svg
                   className="h-[1em] opacity-50"
                   xmlns="http://www.w3.org/2000/svg"
@@ -196,11 +193,14 @@ const LogIn = () => {
               className="btn btn-primary my-3"
               onClick={isLogInForm ? handleLogin : handleSignUp}
             >
-              Submit
+              {isLogInForm ? "Login" : "Sign Up"}
             </button>
           </div>
           <p
-            onClick={() => setIsLogInForm((value) => !value)}
+            onClick={() => {
+              setIsLogInForm((value) => !value);
+              setError("");
+            }}
             className="cursor-pointer m-auto"
           >
             {isLogInForm
