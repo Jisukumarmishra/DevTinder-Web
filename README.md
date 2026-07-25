@@ -32,3 +32,14 @@ install the react-redux+@reduxjs/toolkit -----> configureStore -----> Provider (
 -- ssh command (private key) // ssh-i-"Secret_keys.ppm" machine-configurations
 -- install same version of the node // nvm install 24.10.0
 -- git clone // ls for check
+-- Deploy Fronted
+-- npm install // install depedencies
+-- npm run build // in both loacal machine and remote machine to create a dist file in both machine
+-- sudo apt update // to update the system
+-- sudo apt install nginx // nginx is open source software that provide http webserver, load balancer etc to deploy the server
+-- sudo systemctl start nginx // command to start nginx onto the system
+-- sudo systemctl enable nginx
+_-- sudo scp -r dist/_ /var/www/html // copy code form the dist (build files) folder to /var/www/html/
+-- enable port :80 of your instace
+-- BackEnd Deployment
+--
