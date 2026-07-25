@@ -24,3 +24,11 @@ install the react-redux+@reduxjs/toolkit -----> configureStore -----> Provider (
 // to get the data form the store use useSelector
 
 # Complete The Accept And Reject Features
+
+# Deployment
+
+-- on aws Launch Instance
+-- chmod 400 "Secret_Keys.pem" // public the key
+-- ssh command (private key) // ssh-i-"Secret_keys.ppm" machine-configurations
+-- install same version of the node // nvm install 24.10.0
+-- git clone // ls for check
