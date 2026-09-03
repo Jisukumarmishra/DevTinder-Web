@@ -41,7 +41,8 @@ install the react-redux+@reduxjs/toolkit -----> configureStore -----> Provider (
 -- sudo apt install nginx // nginx is open source software that provide http webserver, load balancer etc to deploy the server
 -- sudo systemctl start nginx // command to start nginx onto the system
 -- sudo systemctl enable nginx
-_-- sudo scp -r dist/_ /var/www/html // copy code form the dist (build files) folder to /var/www/html/
+-- copy code form the dist (build files) folder to /var/www/html/
+-- sudo scp -r dist/\* /var/www/html
 -- enable port :80 of your instace
 
 # BackEnd Deployment
@@ -78,3 +79,15 @@ proxy_pass http://localhost:3000/;
     }
 
 // whenever you make any request its first goes to the nginx
+
+# Adding a Custom Domain Name
+
+- Purchesed Domain Name form GoDaddY
+- SignUp To CloudFare And Add a New Domain Name // To mange the dns of the Your Doamin , its provide extra featutres
+- change the nameserver on godaddy/ hostinger and point it to cloudfare
+- Added the - A record on the cloudflare
+
+# Payment GateWay Integration
+
+- sign up on rajorpay and complete kyc
+-
