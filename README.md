@@ -83,9 +83,20 @@ proxy_pass http://localhost:3000/;
 # Adding a Custom Domain Name
 
 - Purchesed Domain Name form GoDaddY
-- SignUp To CloudFare And Add a New Domain Name // To mange the dns of the Your Doamin , its provide extra featutres
-- change the nameserver on godaddy/ hostinger and point it to cloudfare
-- Added the - A record on the cloudflare
+- SignUp To CloudFare And Add a New Domain Name // To manage the dns of the Your Doamin You Can Use a Cloudfare, its provide extra featutres
+  \*\*\*- change the nameserver on godaddy/ hostinger and point it to cloudfare
+- Added the - A record on the cloudflare(you can add your personal ip address in the a record) "tale almot 50 minutes"
+- enable full ssl for websites
+
+# Sending Email Via SES
+
+- Create a IAM User
+- Give Access To AmazonSESFullAccess
+- Amazon SES:- Create An Identity
+- Verufy Your Domain Name
+- Verify Your Email Address
+- Install AWS SDK - v3
+- Code Example:- https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/ses#code-examples
 
 # Payment GateWay Integration
 
