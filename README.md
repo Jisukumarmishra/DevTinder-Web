@@ -94,9 +94,40 @@ proxy_pass http://localhost:3000/;
 - Give Access To AmazonSESFullAccess
 - Amazon SES:- Create An Identity
 - Verufy Your Domain Name
-- Verify Your Email Address
+- Verify Your Email Address Identity
 - Install AWS SDK - v3
 - Code Example:- https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/ses#code-examples
+- setup secClient
+- Access Credentials Should Be Created in IAM under securitycredentials tab
+- add the credentials to the env files
+- write code for sesClient 
+
+const sesClient = new SESClient({ region: REGION, credentials: {
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SES_SECRET_ACCESS_KEY
+} });
+
+- write code for sending Email Address
+
+const createSendEmailCommand = (toAddress, fromAddress,subject, body) => {
+  const run = async (subject, body) => {
+    const sendEmailCommand = createSendEmailCommand(
+    "email"
+    "domainEmail"
+    subject,
+    body,
+    )
+
+    try {
+
+    } catch (err) {
+
+    }
+  }
+}
+
+
+- make the emails dynamic by passing more params to the run function
 
 # Payment GateWay Integration
 
