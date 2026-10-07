@@ -100,34 +100,41 @@ proxy_pass http://localhost:3000/;
 - setup secClient
 - Access Credentials Should Be Created in IAM under securitycredentials tab
 - add the credentials to the env files
-- write code for sesClient 
+- write code for sesClient
 
 const sesClient = new SESClient({ region: REGION, credentials: {
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SES_SECRET_ACCESS_KEY
+accessKeyId: process.env.AWS_ACCESS_KEY,
+secretAccessKey: process.env.AWS_SES_SECRET_ACCESS_KEY
 } });
 
 - write code for sending Email Address
 
 const createSendEmailCommand = (toAddress, fromAddress,subject, body) => {
-  const run = async (subject, body) => {
-    const sendEmailCommand = createSendEmailCommand(
-    "email"
-    "domainEmail"
-    subject,
-    body,
-    )
+const run = async (subject, body) => {
+const sendEmailCommand = createSendEmailCommand(
+"email"
+"domainEmail"
+subject,
+body,
+)
 
     try {
 
     } catch (err) {
 
     }
-  }
+
+}
 }
 
-
 - make the emails dynamic by passing more params to the run function
+
+# Implementations Of Scheduling Task Using CRON JOBS
+
+- Features:- For Every Day At 8 am Monring We Should Send The Emails to all the users that
+  Get The Connections Request In The Last Days
+  - Installing node package (npm i node-cron);
+  -
 
 # Payment GateWay Integration
 
