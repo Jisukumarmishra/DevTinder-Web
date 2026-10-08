@@ -118,23 +118,31 @@ subject,
 body,
 )
 
-    try {
+try {
 
-    } catch (err) {
+} catch (err) {
 
-    }
+}
 
 }
 }
 
 - make the emails dynamic by passing more params to the run function
 
-# Implementations Of Scheduling Task Using CRON JOBS
+# Implementations Of Scheduling Task Using CRON JOBS in NodeJS
 
 - Features:- For Every Day At 8 am Monring We Should Send The Emails to all the users that
   Get The Connections Request In The Last Days
   - Installing node package (npm i node-cron);
-  -
+  - learning About cron expressions syntax - crontab.guru
+  - Schedule a job
+  - using node package data-fns for data modification( npm i date-fns)
+  - find all the unique(use 'new Set' ) email id who have got connection request in previous day
+  - send email
+  - explore Queue Mechanism To send Bulk emails
+  - amazon ses bulk email sending
+  - make sendEmails Function dynamic
+  - bee-queue and bull npm package
 
 # Payment GateWay Integration
 
