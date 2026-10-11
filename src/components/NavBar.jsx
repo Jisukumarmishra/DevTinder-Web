@@ -66,6 +66,11 @@ const NavBar = () => {
               <li>
                 <a onClick={handleLogout}>Logout</a>
               </li>
+              <li>
+                <Link to="/premium" className="font-bold">
+                  Premium
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

@@ -1,4 +1,4 @@
-Create a Vite + React Project
+# Create a Vite + React Project
 
 Installing Talwind Css :=
 npm install tailwindcss @tailwindcss/vite
