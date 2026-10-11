@@ -147,4 +147,5 @@ try {
 # Payment GateWay Integration
 
 - sign up on rajorpay and complete kyc
--
+- Created A Ui For premium Page
+- Creating an API for create Order in backend
