@@ -1,4 +1,6 @@
+import axios from "axios";
 import React from "react";
+import { BASE_URL } from "../utils/constants";
 
 const Premium = () => {
   const plans = [
@@ -14,6 +16,7 @@ const Premium = () => {
         "3 months of membership",
       ],
       button: "Choose Silver",
+      onClick: () => handleBuyClick("Silver"),
       popular: false,
     },
     {
@@ -28,9 +31,21 @@ const Premium = () => {
         "6 months of membership",
       ],
       button: "Choose Gold",
+      onClick: () => handleBuyClick("Silver"),
       popular: true,
     },
   ];
+
+  const handleBuyClick = async (type) => {
+    // make an api call on server to create a payment order and get the order id
+    const order = await axios.post(
+      BASE_URL + "/payment/create",
+      { type },
+      { withCredentials: true },
+    );
+
+    // it should open the razorpay Dialog box with the order id and other details
+  };
 
   return (
     <main className="min-h-screen bg-base-200 px-5 py-12 sm:px-8">
@@ -132,9 +147,7 @@ const Premium = () => {
                     ? "bg-amber-400 text-black hover:bg-amber-500"
                     : "btn-neutral"
                 }`}
-                onClick={() => {
-                  console.log(`Selected ${plan.name} membership`);
-                }}
+                onClick={() => handleBuyClick("Gold")}
               >
                 {plan.button}
                 <span aria-hidden="true">→</span>

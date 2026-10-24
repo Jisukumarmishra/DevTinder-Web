@@ -149,3 +149,10 @@ try {
 - sign up on rajorpay and complete kyc
 - Created A Ui For premium Page
 - Creating an API for create Order in backend
+- addeded my Key And Secret Key in the .env file
+- create a configure file in seperated folder(utils) and file
+- Intialize The Rajorpay(in utils) And Create The Instance
+- Created Order on Razorpay And Send The Order Id To The Frontend
+- created schemna and model
+- save the order in payment collection
+- make the api dynamic
