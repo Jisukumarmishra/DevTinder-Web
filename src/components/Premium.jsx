@@ -31,7 +31,7 @@ const Premium = () => {
         "6 months of membership",
       ],
       button: "Choose Gold",
-      onClick: () => handleBuyClick("Silver"),
+      onClick: () => handleBuyClick("Gold"),
       popular: true,
     },
   ];
@@ -40,11 +40,33 @@ const Premium = () => {
     // make an api call on server to create a payment order and get the order id
     const order = await axios.post(
       BASE_URL + "/payment/create",
-      { type },
+      { memberShipType: type },
       { withCredentials: true },
     );
 
     // it should open the razorpay Dialog box with the order id and other details
+
+    const { amount, keyId, notes, orderId } = order.data;
+
+    const options = {
+      key: keyId,
+      amount,
+      currency: "INR",
+      name: "Dev Tinder",
+      description: "Connect To other Developers",
+      order_id: orderId,
+      prefill: {
+        name: notes.firstName + " " + notes.lastName,
+        email: notes.emailId,
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#F37254",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   return (
@@ -147,7 +169,7 @@ const Premium = () => {
                     ? "bg-amber-400 text-black hover:bg-amber-500"
                     : "btn-neutral"
                 }`}
-                onClick={() => handleBuyClick("Gold")}
+                onClick={plan.onClick}
               >
                 {plan.button}
                 <span aria-hidden="true">→</span>
