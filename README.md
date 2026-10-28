@@ -172,7 +172,7 @@ Backend process name devtinder-backend
 Frontend website https://devtinder.jisukumar.in
 Portfolio website https://jisukumar.in
 
-2. Every Time I Update the Frontend
+1. Every Time I Update the Frontend
 
 - 1: Push changes to GitHub
 - 2: Connect to AWS EC2
