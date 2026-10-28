@@ -158,19 +158,7 @@ try {
 - make the api dynamic
 - Setup Razorpay Webhook on your Live Api
 
-# 1. My Deployment Setup
-
-Component Configuration
-Cloud server AWS EC2
-Frontend repository ~/DevTinder-Web
-Backend repository ~/DevTinder
-Frontend technology React + Vite
-Frontend production build ~/DevTinder-Web/dist
-Nginx frontend directory /var/www/html
-Backend process manager PM2
-Backend process name devtinder-backend
-Frontend website https://devtinder.jisukumar.in
-Portfolio website https://jisukumar.in
+# 1. Fronted Continuous Deployment:-
 
 1. Every Time I Update the Frontend
 
@@ -199,3 +187,10 @@ https://devtinder.jisukumar.in
 Press Ctrl + Shift + R to refresh the website.
 
 Frontend deployment complete! You do not need to restart PM2 or Nginx just to publish updated static frontend files.
+
+2. Backend Continuous Deployment
+
+- cd ~/DevTinder
+- git pull --ff-only origin main
+- npm ci
+- pm2 restart devtinder-backend
