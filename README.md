@@ -157,6 +157,10 @@ try {
 - save the order in payment collection
 - make the api dynamic
 - Setup Razorpay Webhook on your Live Api
+- ref: https://github.com/razorpay/razorpay-node/tree/master/documents
+- ref: https://razorpay.com/docs/payments/server-integration/nodejs/integration-steps
+- ref: https://razorpay.com/docs/webhooks/validate-test
+- ref https://razorpay.com/docs/webhooks/payments
 
 # 1. Fronted Continuous Deployment:-
 
@@ -164,9 +168,17 @@ try {
 
 - 1: Push changes to GitHub
 - 2: Connect to AWS EC2
-- 3 : Navigate to the frontend repository(cd ~/DevTinder-Web)
-- 4 Pull the latest GitHub changes (git pull --ff-only origin main)
-- If Git reports local changes or a conflict, stop and resolve the issue before continuing.
+- 3: Navigate to the frontend repository(cd ~/DevTinder-Web)
+- 4: cd ../DevTinder-Web
+- git pull
+- npm run build
+- sudo cp -a dist/. /var/www/html/
+- sudo systemctl reload nginx // to relaod nginx and make the changes live
+- sudo systemctl status nginx // check the status of the nginx server
+- pm2 logs
+- for the .env file add
+- cd ../devtinder
+- sudo nano .env
 - 5: Install dependencies and build(npm ci,
   npm run build)
 
@@ -192,5 +204,7 @@ Frontend deployment complete! You do not need to restart PM2 or Nginx just to pu
 
 - cd ~/DevTinder
 - git pull --ff-only origin main
+- pm2 list
+- pm2 restart 0
 - npm ci
 - pm2 restart devtinder-backend

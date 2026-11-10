@@ -3,6 +3,7 @@ import React from "react";
 import { BASE_URL } from "../utils/constants";
 
 const Premium = () => {
+  const verifyPaymentUseer = async () => {};
   const plans = [
     {
       name: "Silver",
@@ -63,6 +64,7 @@ const Premium = () => {
       theme: {
         color: "#F37254",
       },
+      handler: verifyPaymentUser,
     };
 
     const rzp = new window.Razorpay(options);
