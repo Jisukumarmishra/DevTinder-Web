@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
-import PremiumUsers from "./premiumUsers";
+import PremiumUsers from "./PremiumUsers";
 
 const UserCard = ({ user }) => {
   const { _id, firstName, lastName, photoUrl, about, age, gender, isPremium } =
