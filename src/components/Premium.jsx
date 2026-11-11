@@ -3,17 +3,61 @@ import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 
 const Premium = () => {
+  const [isUserPremium, setIsUserPremium] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const verifyPremiumUser = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/premium/verify", {
+        withCredentials: true,
+      });
+      setIsUserPremium(Boolean(res.data.isPremium));
+    } catch (err) {
+      console.error("Premium verification failed:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     verifyPremiumUser();
   }, []);
 
-  const [isUserPremium, setIsUserPremium] = useState(false);
-  const verifyPremiumUser = async () => {
-    const res = await axios.get(BASE_URL + "/premium/verify", {
-      withCredentials: true,
-    });
-    if (res.data.isPremium) {
-      setIsUserPremium(true);
+  const handleBuyClick = async (type) => {
+    try {
+      // Create a payment order on the server and get the order id
+      const order = await axios.post(
+        BASE_URL + "/payment/create",
+        { memberShipType: type },
+        { withCredentials: true },
+      );
+
+      const { amount, keyId, notes, orderId } = order.data;
+
+      // Open the Razorpay dialog with the order details
+      const options = {
+        key: keyId,
+        amount,
+        currency: "INR",
+        name: "Dev Tinder",
+        description: "Connect To other Developers",
+        order_id: orderId,
+        prefill: {
+          name: [notes.firstName, notes.lastName].filter(Boolean).join(" "),
+          email: notes.emailId,
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#F37254",
+        },
+        // Re-check premium status after a successful payment
+        handler: verifyPremiumUser,
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      console.error("Could not start payment:", err);
     }
   };
 
@@ -30,7 +74,6 @@ const Premium = () => {
         "3 months of membership",
       ],
       button: "Choose Silver",
-      onClick: () => handleBuyClick("Silver"),
       popular: false,
     },
     {
@@ -45,48 +88,35 @@ const Premium = () => {
         "6 months of membership",
       ],
       button: "Choose Gold",
-      onClick: () => handleBuyClick("Gold"),
       popular: true,
     },
   ];
 
-  const handleBuyClick = async (type) => {
-    // make an api call on server to create a payment order and get the order id
-    const order = await axios.post(
-      BASE_URL + "/payment/create",
-      { memberShipType: type },
-      { withCredentials: true },
+  if (loading) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-base-200">
+        <span className="loading loading-spinner loading-lg" />
+      </main>
     );
+  }
 
-    // it should open the razorpay Dialog box with the order id and other details
-
-    const { amount, keyId, notes, orderId } = order.data;
-
-    const options = {
-      key: keyId,
-      amount,
-      currency: "INR",
-      name: "Dev Tinder",
-      description: "Connect To other Developers",
-      order_id: orderId,
-      prefill: {
-        name: notes.firstName + " " + notes.lastName,
-        email: notes.emailId,
-        contact: "9999999999",
-      },
-      theme: {
-        color: "#F37254",
-      },
-      handler: verifyPremiumUser,
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
+  if (isUserPremium) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-base-200 px-5">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            You are already a premium user.
+          </h1>
+          <p className="mt-3 text-base-content/65">
+            Enjoy chatting and connecting with other developers.
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-base-200 px-5 py-12 sm:px-8">
-      isUserPremium ? : ( "You are already a premium user." )
       <div className="mx-auto max-w-5xl">
         {/* Header */}
         <header className="mb-12 text-center">
@@ -185,7 +215,7 @@ const Premium = () => {
                     ? "bg-amber-400 text-black hover:bg-amber-500"
                     : "btn-neutral"
                 }`}
-                onClick={plan.onClick}
+                onClick={() => handleBuyClick(plan.name)}
               >
                 {plan.button}
                 <span aria-hidden="true">→</span>
