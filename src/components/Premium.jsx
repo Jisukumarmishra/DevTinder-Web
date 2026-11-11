@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Premium = () => {
+  const dispatch = useDispatch();
   const [isUserPremium, setIsUserPremium] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -12,6 +15,12 @@ const Premium = () => {
         withCredentials: true,
       });
       setIsUserPremium(Boolean(res.data.isPremium));
+      if (res.data.isPremium) {
+        const profile = await axios.get(BASE_URL + "/profile/view", {
+          withCredentials: true,
+        });
+        dispatch(addUser(profile.data));
+      }
     } catch (err) {
       console.error("Premium verification failed:", err);
     } finally {
