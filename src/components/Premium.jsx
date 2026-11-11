@@ -103,10 +103,11 @@ const Premium = () => {
   if (isUserPremium) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-base-200 px-5">
-        <div className="text-center">
+        <div className="items-center text-center -translate-y-28">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             You are already a premium user.
           </h1>
+
           <p className="mt-3 text-base-content/65">
             Enjoy chatting and connecting with other developers.
           </p>

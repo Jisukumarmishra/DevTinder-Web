@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
+import PremiumUsers from "./PremiumUsers";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
@@ -31,7 +32,10 @@ const NavBar = () => {
 
       {user && (
         <div className="flex items-center gap-4">
-          <p className="font-medium">Welcome, {user.firstName}</p>
+          <p className="flex items-center gap-1 font-medium">
+            Welcome, {user.firstName}
+            <PremiumUsers isPremium={user.isPremium} className="h-4 w-4" />
+          </p>
 
           <div className="dropdown dropdown-end">
             <div

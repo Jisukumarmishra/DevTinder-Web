@@ -2,9 +2,11 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
+import PremiumUsers from "./premiumUsers";
 
 const UserCard = ({ user }) => {
-  const { _id, firstName, lastName, photoUrl, about, age, gender } = user;
+  const { _id, firstName, lastName, photoUrl, about, age, gender, isPremium } =
+    user;
   const dispatch = useDispatch();
   const handleSendRequest = async (status, userId) => {
     try {
@@ -39,10 +41,10 @@ const UserCard = ({ user }) => {
 
         {/* Name */}
         <div className="absolute bottom-5 left-5">
-          <h2 className="text-3xl font-bold text-white">
+          <h2 className="flex items-center gap-2 text-3xl font-bold text-white">
             {firstName} {lastName}
+            <PremiumUsers isPremium={isPremium} className="h-6 w-6" />
           </h2>
-
           {age && gender && (
             <p className="mt-1 text-sm text-gray-300">
               {age} • {gender}

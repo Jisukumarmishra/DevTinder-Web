@@ -120,6 +120,7 @@ const EditProfile = ({ user }) => {
             age,
             gender,
             about,
+            isPremium: user.isPremium,
           }}
         />
       </div>
