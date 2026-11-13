@@ -208,3 +208,8 @@ Frontend deployment complete! You do not need to restart PM2 or Nginx just to pu
 - pm2 restart 0
 - npm ci
 - pm2 restart devtinder-backend
+
+# Real Time chat using Websocket(socket.io)
+
+WebSocket:-
+Socket.io is a libraru that enables , low latency, bidirectional and event based communication between the client and the server.
