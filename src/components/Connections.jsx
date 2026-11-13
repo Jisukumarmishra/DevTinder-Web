@@ -63,6 +63,7 @@ const Connections = () => {
 
               <p>{about}</p>
             </div>
+            <button className="btn btn-primary mt-2 ml-auto">Chat</button>
           </div>
         );
       })}
