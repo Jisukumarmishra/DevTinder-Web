@@ -213,3 +213,4 @@ Frontend deployment complete! You do not need to restart PM2 or Nginx just to pu
 
 WebSocket:-
 Socket.io is a libraru that enables , low latency, bidirectional and event based communication between the client and the server.
+// api is generally unidirectional, but websocket is bidirectional
