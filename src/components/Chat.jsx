@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { createSocketConnection } from "../utils/socket";
 
 const Chat = () => {
+  // making connection to the server
+  // as soon as my page load i want to connect to my server
+
+  useEffect(() => {
+    const socket = createSocketConnection(); // now we use this socket to emit event
+  }, []);
+
   const { targetUserId } = useParams();
   const [message, setMessage] = useState(""); // create a varraible where store all the messages in tempporary varrible inside my component
   console.log("Target User ID:", targetUserId);
