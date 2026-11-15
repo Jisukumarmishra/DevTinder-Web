@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 const Chat = () => {
   const { targetUserId } = useParams();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(""); // create a varraible where store all the messages in tempporary varrible inside my component
   console.log("Target User ID:", targetUserId);
   return (
     <div className="h-[90vh] flex bg-base-200 rounded-xl overflow-hidden shadow-lg m-4">
@@ -95,7 +95,7 @@ const Chat = () => {
             onChange={(e) => setMessage(e.target.value)}
           />
 
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary my-50">
             Send
           </button>
         </form>
