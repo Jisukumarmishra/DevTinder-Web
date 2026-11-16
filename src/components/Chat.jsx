@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
-
+import { useSelector } from "react-redux";
 const Chat = () => {
+  const user = useSelector((store) => store.user);
+  const userId = user._id;
+
   // making connection to the server
   // as soon as my page load i want to connect to my server
 
