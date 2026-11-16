@@ -8,6 +8,8 @@ const Chat = () => {
 
   useEffect(() => {
     const socket = createSocketConnection(); // now we use this socket to emit event
+    // emit event
+    socket.emit("joinChat", { userId, targetUserId });
   }, []);
 
   const { targetUserId } = useParams();
