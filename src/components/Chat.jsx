@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
 const Chat = () => {
   const user = useSelector((store) => store.user);
-  const userId = user._id;
-
+  const userId = user?._id;
   // making connection to the server
   // as soon as my page load i want to connect to my server
+  const { targetUserId } = useParams();
+  const [message, setMessage] = useState(""); // create a varraible where store all the messages in tempporary varrible inside my component
+  console.log("Target User ID:", targetUserId);
 
   useEffect(() => {
     const socket = createSocketConnection(); // now we use this socket to emit event
@@ -15,9 +17,6 @@ const Chat = () => {
     socket.emit("joinChat", { userId, targetUserId });
   }, []);
 
-  const { targetUserId } = useParams();
-  const [message, setMessage] = useState(""); // create a varraible where store all the messages in tempporary varrible inside my component
-  console.log("Target User ID:", targetUserId);
   return (
     <div className="h-[90vh] flex bg-base-200 rounded-xl overflow-hidden shadow-lg m-4">
       {/* Left Sidebar */}
