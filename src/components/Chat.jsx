@@ -13,8 +13,13 @@ const Chat = () => {
 
   useEffect(() => {
     const socket = createSocketConnection(); // now we use this socket to emit event
-    // emit event
+    // as soon as the page is loaded the socket connections is made and joinChat event is emitted
     socket.emit("joinChat", { userId, targetUserId });
+
+    // as soona as component is unmount socket is disconnect
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
