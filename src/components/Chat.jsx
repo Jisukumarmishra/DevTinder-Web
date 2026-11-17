@@ -12,6 +12,7 @@ const Chat = () => {
   console.log("Target User ID:", targetUserId);
 
   useEffect(() => {
+    if (!userId) return;
     const socket = createSocketConnection();
     socket.emit("joinChat", { userId, targetUserId }); // intially userId is Empty
     return () => {
