@@ -12,15 +12,12 @@ const Chat = () => {
   console.log("Target User ID:", targetUserId);
 
   useEffect(() => {
-    const socket = createSocketConnection(); // now we use this socket to emit event
-    // as soon as the page is loaded the socket connections is made and joinChat event is emitted
-    socket.emit("joinChat", { userId, targetUserId });
-
-    // as soona as component is unmount socket is disconnect
+    const socket = createSocketConnection();
+    socket.emit("joinChat", { userId, targetUserId }); // intially userId is Empty
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [userId, targetUserId]);
 
   return (
     <div className="h-[90vh] flex bg-base-200 rounded-xl overflow-hidden shadow-lg m-4">
