@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
+import { Socket } from "socket.io-client";
 const Chat = () => {
   const user = useSelector((store) => store.user);
   const userId = user?._id;
@@ -14,11 +15,25 @@ const Chat = () => {
   useEffect(() => {
     if (!userId) return;
     const socket = createSocketConnection();
-    socket.emit("joinChat", { userId, targetUserId }); // intially userId is Empty
+    socket.emit("joinChat", {
+      firstName: user.firstName,
+      userId,
+      targetUserId,
+    }); // intially userId is Empty
     return () => {
       socket.disconnect();
     };
   }, [userId, targetUserId]);
+
+  const sendMessage = () => {
+    const socket = createSocketConnection();
+    socket.emit("sendMessage", {
+      firstName: user.firstName,
+      userId,
+      targetUserId,
+      text: message,
+    });
+  };
 
   return (
     <div className="h-[90vh] flex bg-base-200 rounded-xl overflow-hidden shadow-lg m-4">
@@ -110,7 +125,11 @@ const Chat = () => {
             onChange={(e) => setMessage(e.target.value)}
           />
 
-          <button type="submit" className="btn btn-primary my-50">
+          <button
+            onClick={sendMessage}
+            type="submit"
+            className="btn btn-primary my-50"
+          >
             Send
           </button>
         </form>
