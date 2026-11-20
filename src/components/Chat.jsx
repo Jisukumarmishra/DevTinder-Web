@@ -25,7 +25,8 @@ const Chat = () => {
     };
   }, [userId, targetUserId]);
 
-  const sendMessage = () => {
+  const sendMessage = (e) => {
+    e.preventDefault();
     const socket = createSocketConnection();
     socket.emit("sendMessage", {
       firstName: user.firstName,
