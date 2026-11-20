@@ -211,6 +211,8 @@ Frontend deployment complete! You do not need to restart PM2 or Nginx just to pu
 
 # Real Time chat using Websocket(socket.io)
 
+any two clinet are connected to the same room anybody send the message the room in notified.this is the whole wensocket. (two people connected to the backend server in the same room whenever they send the message both of them received or all the member is received)
+
 WebSocket:-
 Socket.io is a libraru that enables , low latency, bidirectional and event based communication between the client and the server.
 // api is generally unidirectional, but websocket is bidirectional
