@@ -1,21 +1,53 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
-import { useSelector } from "react-redux";
-import { Socket } from "socket.io-client";
-import { text } from "framer-motion/client";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import { addConnections } from "../utils/connectionsSlice";
+
 const Chat = () => {
   const user = useSelector((store) => store.user);
+  const connections = useSelector((store) => store.connections);
   const userId = user?._id;
-  // making connection to the server
-  // as soon as my page load i want to connect to my server
   const { targetUserId } = useParams();
-  const [message, setMessage] = useState(""); // create a varraible where store all the messages in tempporary varrible inside my component
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const socketRef = useRef(null);
+
+  // 1. Fetch connections if Redux store doesn't have them yet (e.g., on page refresh)
+  const fetchConnections = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/user/connections", {
+        withCredentials: true,
+      });
+      dispatch(addConnections(res.data.data));
+    } catch (err) {
+      console.error("Failed to fetch connections:", err);
+    }
+  };
 
   useEffect(() => {
-    if (!userId) return;
+    if (!connections) {
+      fetchConnections();
+    }
+  }, [connections]);
+
+  // 2. Find the person you are currently chatting with (e.g., Spidey)
+  const targetUser = connections?.find((conn) => conn._id === targetUserId);
+
+  useEffect(() => {
+    if (!userId || !targetUserId) return;
+
+    // Reset messages when switching to a different chat user
+    setMessages([]);
 
     const socket = createSocketConnection();
+    socketRef.current = socket;
 
     socket.emit("joinChat", {
       firstName: user.firstName,
@@ -24,7 +56,7 @@ const Chat = () => {
     });
 
     socket.on("messageReceived", ({ firstName, text }) => {
-      console.log(firstName + text);
+      setMessages((prevMessages) => [...prevMessages, { firstName, text }]);
     });
 
     return () => {
@@ -34,21 +66,25 @@ const Chat = () => {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    const socket = createSocketConnection();
-    socket.emit("sendMessage", {
+    if (!message.trim() || !socketRef.current) return;
+
+    socketRef.current.emit("sendMessage", {
       firstName: user.firstName,
       userId,
       targetUserId,
       text: message,
     });
+
+    setMessage("");
   };
 
+  if (!user) return null;
+
   return (
-    <div className="h-[90vh] flex bg-base-200 rounded-xl overflow-hidden shadow-lg m-4">
-      {/* Left Sidebar */}
+    <div className="h-[calc(100vh-90px)] flex bg-base-200 rounded-xl shadow-lg m-4">
+      {/* Left Sidebar: All Connections / Conversation List */}
       <div className="w-1/3 border-r border-base-300 flex flex-col">
-        {/* Sidebar Header */}
-        <div className="p-5 bg-base-300">
+        <div className="p-5">
           <h2 className="text-xl font-bold">Chats</h2>
           <input
             type="text"
@@ -57,74 +93,97 @@ const Chat = () => {
           />
         </div>
 
-        {/* Conversation List */}
+        {/* Dynamic Conversation List */}
         <div className="flex-1 overflow-y-auto">
-          <div className="flex items-center gap-3 p-4 hover:bg-base-300 cursor-pointer">
-            <img
-              src="https://i.pravatar.cc/150?img=12"
-              className="w-12 h-12 rounded-full"
-              alt="User"
-            />
-            <div className="flex-1">
-              <h3 className="font-semibold">Rahul</h3>
-              <p className="text-sm text-gray-500">Hello!</p>
-            </div>
-            <span className="text-xs text-gray-500">10:30</span>
-          </div>
-
-          <div className="flex items-center gap-3 p-4 hover:bg-base-300 cursor-pointer">
-            <img
-              src="https://i.pravatar.cc/150?img=5"
-              className="w-12 h-12 rounded-full"
-              alt="User"
-            />
-            <div className="flex-1">
-              <h3 className="font-semibold">Amit</h3>
-              <p className="text-sm text-gray-500">How are you?</p>
-            </div>
-            <span className="text-xs text-gray-500">Yesterday</span>
-          </div>
+          {connections?.map((conn) => {
+            const isSelected = conn._id === targetUserId;
+            return (
+              <div
+                key={conn._id}
+                onClick={() => navigate("/chat/" + conn._id)}
+                className={`flex items-center gap-3 p-4 cursor-pointer hover:bg-base-300 ${
+                  isSelected ? "bg-base-300" : ""
+                }`}
+              >
+                <img
+                  src={conn.photoUrl}
+                  className="w-12 h-12 rounded-full object-cover"
+                  alt={conn.firstName}
+                />
+                <div className="flex-1">
+                  <h3 className="font-semibold">
+                    {conn.firstName} {conn.lastName}
+                  </h3>
+                  <p className="text-sm text-gray-500 truncate">
+                    {isSelected && messages.length > 0
+                      ? messages[messages.length - 1].text
+                      : "Click to chat"}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Right Chat Section */}
       <div className="flex-1 flex flex-col">
-        {/* Chat Header */}
-        <div className="flex items-center gap-3 p-4 bg-base-300 border-b border-base-300">
+        {/* Chat Header: Shows Target User (Spidey), NOT Logged-in User */}
+        <div className="flex items-center gap-3 p-4 border-b border-base-300">
           <img
-            src="https://i.pravatar.cc/150?img=12"
-            className="w-12 h-12 rounded-full"
-            alt="User"
+            src={targetUser?.photoUrl || "https://via.placeholder.com/150"}
+            className="w-12 h-12 rounded-full object-cover"
+            alt={targetUser?.firstName || "User"}
           />
           <div>
-            <h3 className="font-bold">Rahul</h3>
+            <h3 className="font-bold">
+              {targetUser
+                ? `${targetUser.firstName} ${targetUser.lastName || ""}`
+                : "Loading..."}
+            </h3>
             <p className="text-xs text-success">Online</p>
           </div>
         </div>
 
         {/* Chat Messages */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          <div className="chat chat-start">
-            <div className="chat-bubble bg-base-300 text-base-content">
-              Hey! How are you?
-            </div>
-          </div>
-
-          <div className="chat chat-end">
-            <div className="chat-bubble chat-bubble-primary">
-              I'm good. What about you?
-            </div>
-          </div>
-
-          <div className="chat chat-start">
-            <div className="chat-bubble bg-base-300 text-base-content">
-              I'm doing great!
-            </div>
-          </div>
+          {messages.map((msg, index) => {
+            const isMe = msg.firstName === user.firstName;
+            return (
+              <div
+                key={index}
+                className={`chat ${isMe ? "chat-end" : "chat-start"}`}
+              >
+                <div className="chat-image avatar">
+                  <div className="w-8 rounded-full">
+                    <img
+                      src={isMe ? user.photoUrl : targetUser?.photoUrl}
+                      alt={msg.firstName}
+                    />
+                  </div>
+                </div>
+                <div className="chat-header text-xs opacity-70 mb-1">
+                  {msg.firstName}
+                </div>
+                <div
+                  className={`chat-bubble ${
+                    isMe
+                      ? "chat-bubble-primary"
+                      : "bg-base-300 text-base-content"
+                  }`}
+                >
+                  {msg.text}
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* Message Input */}
-        <form className="flex items-center gap-3 p-4 border-t border-base-300">
+        <form
+          onSubmit={sendMessage}
+          className="flex items-center gap-3 p-4 border-t border-base-300"
+        >
           <input
             type="text"
             placeholder="Type a message..."
@@ -133,11 +192,7 @@ const Chat = () => {
             onChange={(e) => setMessage(e.target.value)}
           />
 
-          <button
-            onClick={sendMessage}
-            type="submit"
-            className="btn btn-primary my-50"
-          >
+          <button type="submit" className="btn btn-primary">
             Send
           </button>
         </form>
