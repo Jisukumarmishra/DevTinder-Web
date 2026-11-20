@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
 import { Socket } from "socket.io-client";
+import { text } from "framer-motion/client";
 const Chat = () => {
   const user = useSelector((store) => store.user);
   const userId = user?._id;
@@ -10,16 +11,22 @@ const Chat = () => {
   // as soon as my page load i want to connect to my server
   const { targetUserId } = useParams();
   const [message, setMessage] = useState(""); // create a varraible where store all the messages in tempporary varrible inside my component
-  console.log("Target User ID:", targetUserId);
 
   useEffect(() => {
     if (!userId) return;
+
     const socket = createSocketConnection();
+
     socket.emit("joinChat", {
       firstName: user.firstName,
       userId,
       targetUserId,
-    }); // intially userId is Empty
+    });
+
+    socket.on("messageReceived", ({ firstName, text }) => {
+      console.log(firstName + text);
+    });
+
     return () => {
       socket.disconnect();
     };
