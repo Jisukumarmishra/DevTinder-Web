@@ -23,7 +23,12 @@ const Chat = () => {
     const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
       withCredentials: true,
     });
+    console.log(chat.data);
   };
+
+  useEffect(() => {
+    fetchChatMessages();
+  }, []);
 
   // 1. Fetch connections if Redux store doesn't have them yet (e.g., on page refresh)
   const fetchConnections = async () => {
