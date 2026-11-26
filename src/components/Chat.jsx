@@ -19,6 +19,12 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const socketRef = useRef(null);
 
+  const fetchChatMessages = async () => {
+    const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
+      withCredentials: true,
+    });
+  };
+
   // 1. Fetch connections if Redux store doesn't have them yet (e.g., on page refresh)
   const fetchConnections = async () => {
     try {
