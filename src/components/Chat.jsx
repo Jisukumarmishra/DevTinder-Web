@@ -9,26 +9,37 @@ import { addConnections } from "../utils/connectionsSlice";
 const Chat = () => {
   const user = useSelector((store) => store.user);
   const connections = useSelector((store) => store.connections);
-  const userId = user?._id;
-  const { targetUserId } = useParams();
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const socketRef = useRef(null);
+  const userId = user?._id;
 
   const fetchChatMessages = async () => {
     const chat = await axios.get(BASE_URL + "/chat/" + targetUserId, {
       withCredentials: true,
     });
-    console.log(chat.data);
+    console.log(chat.data.messages);
+
+    const chatMessages = chat?.data?.messages.map((msg) => {
+      const { senderId, text } = msg;
+      return {
+        firstName: senderId?.firstName,
+        lastName: senderId?.lastName,
+        text,
+      };
+    });
+    setMessages(chatMessages);
   };
 
   useEffect(() => {
     fetchChatMessages();
   }, []);
+
+  const { targetUserId } = useParams();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const socketRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
   // 1. Fetch connections if Redux store doesn't have them yet (e.g., on page refresh)
   const fetchConnections = async () => {
@@ -66,8 +77,11 @@ const Chat = () => {
       targetUserId,
     });
 
-    socket.on("messageReceived", ({ firstName, text }) => {
-      setMessages((prevMessages) => [...prevMessages, { firstName, text }]);
+    socket.on("messageReceived", ({ firstName, lastName, text }) => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { firstName, lastName, text },
+      ]);
     });
 
     return () => {
@@ -75,12 +89,17 @@ const Chat = () => {
     };
   }, [userId, targetUserId]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   const sendMessage = (e) => {
     e.preventDefault();
     if (!message.trim() || !socketRef.current) return;
 
     socketRef.current.emit("sendMessage", {
       firstName: user.firstName,
+      lastName: user.lastName,
       userId,
       targetUserId,
       text: message,
@@ -174,7 +193,8 @@ const Chat = () => {
                   </div>
                 </div>
                 <div className="chat-header text-xs opacity-70 mb-1">
-                  {msg.firstName}
+                  {`${msg.firstName} ${msg.lastName}`}
+                  <time className="text-xs opacity-50">2 hours ago</time>
                 </div>
                 <div
                   className={`chat-bubble ${
@@ -185,9 +205,11 @@ const Chat = () => {
                 >
                   {msg.text}
                 </div>
+                <div className="chat-footer opacity-50">Seen</div>
               </div>
             );
           })}
+          <div ref={messagesEndRef} /> {/* <--- ADD THIS */}
         </div>
 
         {/* Message Input */}
