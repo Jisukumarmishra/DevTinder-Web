@@ -217,5 +217,9 @@ WebSocket:-
 Socket.io is a libraru that enables , low latency, bidirectional and event based communication between the client and the server.
 // api is generally unidirectional, but websocket is bidirectional
 
-- build the ui for the chat component
--
+- build the ui for the chat window on /chat/:targetUserId
+- setup the socket.io server in the backend
+- setup fronted socket.io client
+- intialize the chat window with the previous messages
+- create a socket connection between the two users
+- listen for events on the socket connection
